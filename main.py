@@ -64,14 +64,14 @@ class MainWindow(QMainWindow):
         self.layout = QVBoxLayout()
 
         # Pulsante per caricare file audio
-        self.load_button = QPushButton("Carica File Audio")
+        self.load_button = QPushButton("Load audio file")
         self.load_button.clicked.connect(self.load_audio_file)
         self.layout.addWidget(self.load_button)
 
         # Selettore di lingua
         self.language_selector = QComboBox()
         self.language_selector.addItems([
-            "Italiano (it)", "Inglese (en)", "Francese (fr)", "Tedesco (de)", "Spagnolo (es)"
+            "Italian (it)", "English (en)", "French (fr)", "Dutch (de)", "Spanish (es)"
         ])
         # self.layout.addWidget(self.language_selector)
 
@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
 
     def load_model(self):
         model_name = self.model_selector.currentText()
-        self.status_label.setText(f"Caricamento modello: {model_name}...")
+        self.status_label.setText(f"Loading model: {model_name}...")
         self.progress_bar.setValue(0)
         self.progress_bar.setVisible(True)
 
@@ -140,19 +140,19 @@ class MainWindow(QMainWindow):
 
     def on_model_loaded(self, model):
         self.model = model
-        self.status_label.setText(f"Modello caricato: {self.model_selector.currentText()}")
+        self.status_label.setText(f"Loaded model: {self.model_selector.currentText()}")
         self.progress_bar.setVisible(False)
 
     def on_model_error(self, error_message):
-        self.status_label.setText(f"Errore nel caricamento del modello: {error_message}")
+        self.status_label.setText(f"Error loading model: {error_message}")
         self.progress_bar.setVisible(False)
 
     def load_audio_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
-            self, "Seleziona file audio", "", "Audio Files (*.mp3 *.wav *.m4a)"
+            self, "Select audio file", "", "Audio Files (*.mp3 *.wav *.m4a)"
         )
         if file_path:
-            self.status_label.setText(f"Elaborazione: {file_path}")
+            self.status_label.setText(f"Processing file: {file_path}")
             self.progress_bar.setVisible(True)
             self.progress_bar.setValue(0)
             self.text_box.clear()
@@ -169,10 +169,10 @@ class MainWindow(QMainWindow):
 
     def display_transcription(self, text):
         self.text_box.setText(text)
-        self.status_label.setText("Trascrizione completata")
+        self.status_label.setText("Completed")
 
     def display_error(self, error_message):
-        self.status_label.setText(f"Errore: {error_message}")
+        self.status_label.setText(f"Error: {error_message}")
 
     def display_log(self, log):
         self.log_box.setText(log)
