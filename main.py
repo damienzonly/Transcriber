@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QTextEdit, QProgressBar, QLabel, QFileDialog, QComboBox, QSplitter, QHBoxLayout
+    QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QPushButton, QTextEdit, QProgressBar, QLabel, QFileDialog, QComboBox, QSplitter
 )
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 import whisper
@@ -77,17 +77,18 @@ class MainWindow(QMainWindow):
 
         # Selettore di modello
         self.model_selector = QComboBox()
-        self.model_selector.addItems(["turbo", "tiny", "base", "small", "medium", "large"])
+        
+        self.model_selector.addItems(['turbo', 'large', 'medium', 'small', 'base', 'tiny'])
+        # reverse array
+
         self.model_selector.setCurrentText("turbo")
         self.model_selector.currentTextChanged.connect(self.load_model)
-        self.model_tooltip = QLabel("Multilingual models: turbo and large")
-        self.model_tooltip.setStyleSheet("color: gray; font-size: 10px;")
-        self.layout.addWidget(self.model_tooltip)
+        # self.layout.addWidget(self.model_selector)
+
         dropdown_layout = QHBoxLayout()
         dropdown_layout.addWidget(self.language_selector)
         dropdown_layout.addWidget(self.model_selector)
         self.layout.addLayout(dropdown_layout)
-        # self.layout.addWidget(self.model_selector)
 
 
         # Barra di progresso
