@@ -6,11 +6,21 @@ Convert your audio files into text (event long ones)
 
 ## How to run
 
-Click on [this link](https://github.com/damienzonly/Transcriber/archive/refs/heads/main.zip)
+Download the software using [this link](https://github.com/damienzonly/Transcriber/archive/refs/heads/main.zip). Unzip it and click on the `"Transcriber"` program.
 
-This will download a zip file containing the software, unzip it and click on the "Transcriber" program.
+A Terminal will popup and it will install the software.
+If you read this in the terminal:
+```
+==> Checking for `sudo` access (which may request your password)...
+Password:
+```
+followed by a Key icon, type the password of your computer (you won't see any visual feedback while typing, for security reasons).
 
-It takes some time the first time you run it
+Click Enter and read further instructions in the terminal.
+
+It will ask you to press `RETURN/ENTER` to continue: press Enter and the installation process will begin.
+
+It takes some time the first time you run it, trust the process.
 
 Enjoy
 
