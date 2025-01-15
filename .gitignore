@@ -1,3 +1,5 @@
 venv
 dist
 build
+tests
+.DS_Store
