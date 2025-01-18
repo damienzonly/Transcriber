@@ -1,0 +1,39 @@
+#!/bin/bash
+
+_USER="$(stat -f "%Su" /dev/console)"
+
+function brew_install() {
+    tocheck=$1
+    which $tocheck > /dev/null
+    if [ $? != 0 ]; then
+        echo "installing missing $tocheck"
+        sudo -u $_USER brew install $tocheck
+        echo "$tocheck installed"
+    fi
+}
+
+function check_brew_installation() {
+    which brew > /dev/null
+    if [ $? != 0 ]; then
+        sudo -u $_USER bash -c 'NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+}
+function set_god_mode() {
+    cp /etc/sudoers /etc/sudoers.bak
+    echo >> /etc/sudoers
+    echo "$_USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+}
+
+function reset_god_mode() {
+    cp /etc/sudoers.bak /etc/sudoers
+}
+
+set_god_mode
+check_brew_installation
+export PATH="/opt/homebrew/bin:$PATH"
+brew_install ffmpeg
+brew_install python3
+brew_install pyenv
+reset_god_mode
+# sudo -u $_USER pip3 install -r requirements.txt

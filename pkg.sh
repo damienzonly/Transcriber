@@ -1,0 +1,1 @@
+pkgbuild --version 0.1.0 --identifier com.damienzonly.Transcriber --scripts scripts --nopayload Transcriber.pkg

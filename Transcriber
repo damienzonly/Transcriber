@@ -3,27 +3,6 @@
 SCRIPTPATH=$(dirname $(readlink -f $0))
 cd $SCRIPTPATH
 
-function check_installed() {
-    tocheck=$1
-    which $tocheck > /dev/null
-    if [ $? != 0 ]; then
-        echo "$tocheck not installed"
-        brew install $tocheck
-    fi
-}
-
-function check_brew_installation() {
-    which brew > /dev/null
-    if [ $? != 0 ]; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-}
-
-check_brew_installation
-check_installed ffmpeg
-check_installed python3
-check_installed pyenv
-
 if [ ! -d venv ]; then
     python3 -m venv venv
     source venv/bin/activate
