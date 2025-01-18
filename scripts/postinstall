@@ -1,6 +1,9 @@
 #!/bin/bash
 
 _USER="$(stat -f "%Su" /dev/console)"
+_SHELL="$(sudo -u $_USER /bin/bash -c 'echo $SHELL')"
+
+echo "Transcriber postinstall: user $_USER, shell $_SHELL"
 
 function brew_install() {
     tocheck=$1
@@ -17,6 +20,17 @@ function check_brew_installation() {
     if [ $? != 0 ]; then
         sudo -u $_USER bash -c 'NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
         eval "$(/opt/homebrew/bin/brew shellenv)"
+        profile=
+        if [ "$_SHELL" == "/bin/bash" ]; then
+            profile="/Users/$_USER/.bash_profile"
+        elif [ "$_SHELL" == "/bin/zsh" ]; then
+            profile="/Users/$_USER/.zprofile"
+        elif [ "$_SHELL" == "/bin/sh" ]; then
+            profile="/Users/$_USER/.profile"
+        fi
+        sudo -u $_USER touch "$profile"
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$profile"
+        echo 'export PATH="/opt/homebrew/bin:$PATH"' >> "$profile"
     fi
 }
 function set_god_mode() {
