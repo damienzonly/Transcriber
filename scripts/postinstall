@@ -35,5 +35,5 @@ export PATH="/opt/homebrew/bin:$PATH"
 brew_install ffmpeg
 brew_install python3
 brew_install pyenv
+pyenv install 3.12.8
 reset_god_mode
-# sudo -u $_USER pip3 install -r requirements.txt

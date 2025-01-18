@@ -2,13 +2,12 @@
 
 SCRIPTPATH=$(dirname $(readlink -f $0))
 cd $SCRIPTPATH
+pythonpath=/$HOME/.pyenv/versions/3.12.8/bin
 
 if [ ! -d venv ]; then
-    python3 -m venv venv
-    source venv/bin/activate
-    pip3 install -r requirements.txt
-else
-    source venv/bin/activate
+    $pythonpath/python3 -m venv venv
 fi
+source venv/bin/activate
+$pythonpath/pip3 install -r requirements.txt
 
-python3 main.py
+$pythonpath/python3 main.py
